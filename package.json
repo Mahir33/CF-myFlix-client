@@ -1,0 +1,29 @@
+{
+  "name": "myflix-client",
+  "version": "1.0.0",
+  "description": "movie api crud",
+  "main": "index.js",
+  "scripts": {
+    "parcel": "parcel ./src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mahir33/CF-myFlix-client.git"
+  },
+  "author": "mahir33",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mahir33/CF-myFlix-client/issues"
+  },
+  "homepage": "https://github.com/Mahir33/CF-myFlix-client#readme",
+  "dependencies": {
+    "parcel": "^2.13.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.13.2",
+    "process": "^0.11.10"
+  }
+}
