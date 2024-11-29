@@ -1,17 +1,11 @@
 import { createRoot } from 'react-dom/client';
+import { MainView } from './components/main-view/main-view';
 import './index.scss';
 
-const MyFlixApplication = () => {
-    return (
-        <div className="my-flix">
-            <h1>myFlix Application</h1>
-        </div>
-    );
-};
 
 const App = () => {
     return (
-        <MyFlixApplication />
+       <MainView />
     );
 }
 
