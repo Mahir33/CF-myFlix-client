@@ -2952,18 +2952,20 @@ var _mainView = require("./components/main-view/main-view");
 var _mainViewDefault = parcelHelpers.interopDefault(_mainView);
 var _indexScss = require("./index.scss");
 const App = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainViewDefault.default), {}, void 0, false, {
-        fileName: "src/index.jsx",
-        lineNumber: 8,
-        columnNumber: 8
-    }, undefined);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainViewDefault.default), {}, void 0, false, {
+            fileName: "src/index.jsx",
+            lineNumber: 9,
+            columnNumber: 8
+        }, undefined)
+    }, void 0, false);
 };
 _c = App;
 const container = document.getElementById('root');
 const root = (0, _client.createRoot)(container);
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 16,
+    lineNumber: 18,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -27235,36 +27237,13 @@ var _movieViewDefault = parcelHelpers.interopDefault(_movieView);
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            _id: 1,
-            Title: 'Inception',
-            Description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.',
-            Genre: 'Science Fiction',
-            Director: 'Christopher Nolan',
-            ImagePath: 'https://play-lh.googleusercontent.com/kSeBtvMBvS9P9jSwP-bVNmrH8yANJeKZrbxUIiw6zSOpRibxBn1IP7PEHrDeoIz0AmQPddbRPMEgh8KL8ohd=w240-h480-rw'
-        },
-        {
-            _id: 2,
-            Title: 'The Shawshank Redemption',
-            Description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
-            Genre: 'Drama',
-            Director: 'Frank Darabont',
-            ImagePath: 'https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg'
-        },
-        {
-            _id: 3,
-            Title: 'Gladiator',
-            Description: 'A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.',
-            Genre: 'Action',
-            Director: 'Ridley Scott',
-            ImagePath: 'https://dvvy6louqcr7j.cloudfront.net/vista/HO00015229/heroPoster/gladiator-ii.png'
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
-    const onMovieClick = (movie)=>{
-        setSelectedMovie(movie);
-    };
+    (0, _react.useEffect)(()=>{
+        fetch("https://myflix-api-mahir-941afb3e93ba.herokuapp.com/movies").then((response)=>response.json()).then((data)=>{
+            setMovies(data);
+        });
+    }, []);
     const onBackClick = ()=>{
         setSelectedMovie(null);
     };
@@ -27273,7 +27252,7 @@ const MainView = ()=>{
         onBackClick: onBackClick
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 43,
+        lineNumber: 21,
         columnNumber: 31
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27281,7 +27260,7 @@ const MainView = ()=>{
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 45,
+        lineNumber: 23,
         columnNumber: 37
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27292,16 +27271,16 @@ const MainView = ()=>{
                 }
             }, movie._id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 49,
+                lineNumber: 27,
                 columnNumber: 17
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 47,
+        lineNumber: 25,
         columnNumber: 9
     }, undefined);
 };
-_s(MainView, "6B2YybwAByuYOKbin5FuPv1Ll+c=");
+_s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
 exports.default = MainView;
 var _c;
@@ -27541,7 +27520,7 @@ const MovieView = ({ movie, onBackClick })=>{
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                         className: "movie-cover-img",
-                        src: movie.ImagePath
+                        src: movie.Image_url
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 6,
@@ -27562,14 +27541,14 @@ const MovieView = ({ movie, onBackClick })=>{
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        children: movie.Genre
+                        children: movie.Genre.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 9,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        children: movie.Director
+                        children: movie.Director.Name
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 10,
