@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const LoginView = ({ onLogin }) => {
+const LoginView = ({ onLoggedIn, logout }) => {
     const [usernameLogin, setUsernameLogin] = useState("");
     const [passwordLogin, setPasswordLogin] = useState("");
+
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,48 +28,49 @@ const LoginView = ({ onLogin }) => {
             console.log('Login response: ', data);
             console.log("Token is: ", data.token);
             if(data.user){
-                localStorage.setItem("user", JSON.stringify(data.user));
-                localStorage.setItem("token", JSON.stringify(data.token));
-                onLogin(data.user, data.token);
+                onLoggedIn(data.user, data.token);
             } else{
                 console.log('User not found');
             }
         })
-        .catch(err => console.log(err));
+        .catch((error) => {
+            console.error('There was a problem with the fetch operation:', error);
+            alert("Login failed");
+        });
     }
     
+    if(logout){
+        setUsernameLogin("");
+        setPasswordLogin("");
+    }
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:
+                <label htmlFor="username-login">Username:
                     <input 
                         type="text" 
-                        id="username-login" 
-                        name="username"
+                        id='username-login'
                         onChange={e => setUsernameLogin(e.target.value)}
                         value={usernameLogin}
                         required
                         min={6}
-                        maxLength={12}
                         placeholder='Username'
                         />
                 </label>
-                <label htmlFor="password">Username:
+                <label htmlFor="password-login">Password:
                     <input 
                         type="password" 
-                        id="password-login" 
-                        name="password"
+                        id='password-login'
                         onChange={e => setPasswordLogin(e.target.value)}
                         value={passwordLogin}
                         required
                         minLength={6}
-                        maxLength={30}
                         placeholder='Password'
                         />
                 </label>
                 <br />
-                <button onClick={onLogin} type="submit">Login</button>
+                <button type="submit">Login</button>
             </form>
         </div>
     )
