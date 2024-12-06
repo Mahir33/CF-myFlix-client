@@ -2,20 +2,19 @@ import { useState } from 'react';
 
 const SignupView = () => {
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [birthday, setBirthday] = useState("");
+    const [usernameSignup, setUsernameSignup] = useState("");
+    const [passwordSignup, setPasswordSignup] = useState("");
+    const [emailSignup, setEmailSignup] = useState("");
+    const [birthdaySignup, setBirthdaySignup] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Attempt to register");
 
         const data = {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday
+            Username: usernameSignup,
+            Password: passwordSignup,
+            Email: emailSignup,
+            Birthday: birthdaySignup
         }
 
         const settings = {
@@ -40,45 +39,45 @@ const SignupView = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:
+            <label htmlFor="username-signup">Username:
                 <input
                     type="text"
-                    id="username"
-                    name="username"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    id="username-signup"
+                    name="username-signup"
+                    value={usernameSignup}
+                    onChange={e => setUsernameSignup(e.target.value)}
                     required
                     minLength={5}
                 />
             </label>
-            <label htmlFor="password">Password:
+            <label htmlFor="password-signup">Password:
                 <input
                     type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    id="password-signup"
+                    name="password-signup"
+                    value={passwordSignup}
+                    onChange={e => setPasswordSignup(e.target.value)}
                     required
                     minLength={5}
                 />
             </label>
-            <label htmlFor="email">Email:
+            <label htmlFor="email-signup">Email:
                 <input
                     type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    id="email-signup"
+                    name="email-signup"
+                    value={emailSignup}
+                    onChange={e => setEmailSignup(e.target.value)}
                     required
                 />
             </label>
-            <label htmlFor="birthday">Birthday:
+            <label htmlFor="birthday-signup">Birthday:
                 <input
                     type="date"
-                    id="birthday"
-                    name="birthday"
-                    value={birthday}
-                    onChange={e => setBirthday(e.target.value)}
+                    id="birthday-signup"
+                    name="birthday-signup"
+                    value={birthdaySignup}
+                    onChange={e => setBirthdaySignup(e.target.value)}
                     required
                 />
             </label>

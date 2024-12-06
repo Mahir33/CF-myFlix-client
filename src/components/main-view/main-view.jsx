@@ -5,12 +5,12 @@ import LoginView from '../login-view/login-view';
 import SignupView from '../signup-view/signup-view';
 
 const MainView = () => {
-    const [storedUser , setStoredUser] = useState(localStorage.getItem("user"));
-    const [storedToken , setStoredToken] = useState(localStorage.getItem("token"));
-    const [movies, setMovies] = useState([]);
-    const [selectedMovie, setSelectedMovie] = useState(null);
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
+    const [movies, setMovies] = useState([]);
+    const [selectedMovie, setSelectedMovie] = useState(null);
 
     useEffect(() => {
 
@@ -24,6 +24,9 @@ const MainView = () => {
         .then(response => response.json())
         .then(movies => {
             setMovies(movies)})
+        .catch((error) => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
         
     }, [token]);
 
@@ -31,17 +34,24 @@ const MainView = () => {
         setSelectedMovie(null);
     }
 
+    const handleLogout = () => {
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+    }
+
+
     if (!user) {
         return (
             <>
                 <LoginView 
-                    onLogin={(user, token) => {
-                    setUser(user)
-                    setToken(token)
-                    localStorage.setItem('user', user);
-                    localStorage.setItem('token', JSON.stringify(token));
-                    }
-                } 
+                    onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                        localStorage.setItem("user", JSON.stringify(user));
+                        localStorage.setItem("token", token);
+                    }}
                 />
                 or
                 <SignupView />  
@@ -62,12 +72,7 @@ const MainView = () => {
                     }} />
                 ))}
             </div>
-            <button onClick={() => {
-                    setUser(null)
-                    setToken(null)
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('token');
-                }}>Logout
+            <button onClick={handleLogout}>Logout
             </button>
         </>
     );
