@@ -1,5 +1,20 @@
-$color: steelblue;
+$primary: SeaGreen;
+$secondary: Honeydew;
+@import '~bootstrap/scss/bootstrap.scss';
 
-.movie-cover-img {
-    width: 250px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: $dark;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.movie-card-img {
+    height: 400px; 
+    object-fit: cover; 
+    width: 100%; 
 }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const LoginView = ({ onLoggedIn }) => {
     const [usernameLogin, setUsernameLogin] = useState("");
@@ -40,39 +42,37 @@ const LoginView = ({ onLoggedIn }) => {
         });
     }
     
-    if(logout){
-        setUsernameLogin("");
-        setPasswordLogin("");
-    }
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username-login">Username:
-                    <input 
-                        type="text" 
-                        id='username-login'
-                        onChange={e => setUsernameLogin(e.target.value)}
-                        value={usernameLogin}
-                        required
-                        min={6}
-                        placeholder='Username'
-                        />
-                </label>
-                <label htmlFor="password-login">Password:
-                    <input 
-                        type="password" 
-                        id='password-login'
-                        onChange={e => setPasswordLogin(e.target.value)}
-                        value={passwordLogin}
-                        required
-                        minLength={6}
-                        placeholder='Password'
-                        />
-                </label>
+            <Form onSubmit={handleSubmit} className='w-100'>
+                <Form.Group controlId="username-login">
+                    <Form.Label className='w-100'>Username:
+                        <Form.Control 
+                            type="text" 
+                            onChange={e => setUsernameLogin(e.target.value)}
+                            value={usernameLogin}
+                            required
+                            min={6}
+                            placeholder='Username'
+                            />
+                    </Form.Label>
+                </Form.Group>
+                <Form.Group controlId="password-login">
+                    <Form.Label className='w-100'>Password:
+                        <Form.Control 
+                            type="password" 
+                            onChange={e => setPasswordLogin(e.target.value)}
+                            value={passwordLogin}
+                            required
+                            minLength={6}
+                            placeholder='Password'
+                            />
+                    </Form.Label>
+                </Form.Group>
                 <br />
-                <button type="submit">Login</button>
-            </form>
+                <Button type="submit" variant="primary" className='w-100'>Login</Button>
+            </Form>
         </div>
     )
 }
