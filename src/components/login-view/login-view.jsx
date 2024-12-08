@@ -40,10 +40,6 @@ const LoginView = ({ onLoggedIn }) => {
         });
     }
     
-    if(logout){
-        setUsernameLogin("");
-        setPasswordLogin("");
-    }
 
     return (
         <div>
