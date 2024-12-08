@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const LoginView = ({ onLoggedIn, logout }) => {
+const LoginView = ({ onLoggedIn }) => {
     const [usernameLogin, setUsernameLogin] = useState("");
     const [passwordLogin, setPasswordLogin] = useState("");
 
@@ -74,6 +75,10 @@ const LoginView = ({ onLoggedIn, logout }) => {
             </form>
         </div>
     )
+}
+
+LoginView.propTypes = {
+    onLoggedIn: PropTypes.func.isRequired
 }
 
 export default LoginView;
