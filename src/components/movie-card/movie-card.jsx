@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 
-const MovieCard = ({movie, onMovieClick}) => {
+const MovieCard = ({movie}) => {
     return (
         <Card className="h-100">
             <Card.Img variant="top" src={movie.ImagePath} className="movie-card-img"/>
@@ -14,7 +14,6 @@ const MovieCard = ({movie, onMovieClick}) => {
                 Open
                 </Button>
                 </Link>
-                {/* <Button onClick={() => onMovieClick(movie)} variant="link">Open</Button> */}
             </Card.Body> 
         </Card>
     )
@@ -25,7 +24,7 @@ MovieCard.propTypes = {
         Title: PropTypes.string.isRequired,
         ImagePath: PropTypes.string.isRequired
     }).isRequired,
-    onMovieClick: PropTypes.func.isRequired
+
 }
 
 export default MovieCard;
