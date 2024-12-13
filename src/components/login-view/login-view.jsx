@@ -4,25 +4,20 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 const LoginView = ({ onLoggedIn }) => {
-    const [usernameLogin, setUsernameLogin] = useState("");
-    const [passwordLogin, setPasswordLogin] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const data = {
-            Username: usernameLogin,
-            Password: passwordLogin
-        }
     
         const settings = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({Username : username, Password : password})
         }
     
         fetch("https://myflix-api-mahir-941afb3e93ba.herokuapp.com/login", settings)
@@ -50,8 +45,8 @@ const LoginView = ({ onLoggedIn }) => {
                     <Form.Label className='w-100'>Username:
                         <Form.Control 
                             type="text" 
-                            onChange={e => setUsernameLogin(e.target.value)}
-                            value={usernameLogin}
+                            onChange={e => setUsername(e.target.value)}
+                            value={username}
                             required
                             min={6}
                             placeholder='Username'
@@ -62,8 +57,8 @@ const LoginView = ({ onLoggedIn }) => {
                     <Form.Label className='w-100'>Password:
                         <Form.Control 
                             type="password" 
-                            onChange={e => setPasswordLogin(e.target.value)}
-                            value={passwordLogin}
+                            onChange={e => setPassword(e.target.value)}
+                            value={password}
                             required
                             minLength={6}
                             placeholder='Password'

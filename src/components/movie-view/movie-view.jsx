@@ -1,42 +1,35 @@
-import PropTypes from "prop-types";
-import { Link, useParams } from "react-router";
-import { Card, Button } from "react-bootstrap";
+import { useParams } from "react-router";
+import { Link } from "react-router"
 
 const MovieView = ({ movies }) => {
-    const { movieId } = useParams();
-    const movie = movies ? movies.find((b) => b.id === movieId) : null;
-
-    if (!movie) {
-        return <div>Movie not found</div>;
-    }
-
-    return (
-        <Card>
-            <img className="w-100" src={movie.ImagePath} alt={movie.Title} />
-            <Card.Body>
-                <h1>{movie.Title}</h1>
-                <p>{movie.Description}</p>
-                <p>{movie.Genre}</p>
-                <p>{movie.Director}</p>
-                <Link to={`/`}>
-                    <Button variant="dark" className="mt-3">Back</Button>
-                </Link>
-            </Card.Body>
-        </Card>
-    );
-}
-
-MovieView.propTypes = {
-    movies: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            Title: PropTypes.string.isRequired,
-            Description: PropTypes.string.isRequired,
-            ImagePath: PropTypes.string.isRequired,
-            Genre: PropTypes.string.isRequired,
-            Director: PropTypes.string.isRequired
-        })
-    ).isRequired,
+  const { movieId } = useParams();
+  const movie = movies.find((m) => m._id === movieId);
+  return (
+    <div>
+      <div>
+        <img className="w-100" src={movie.Image_url} alt={movie.Title} />
+      </div>
+      <div>
+        <span>Title: </span>
+        <span>{movie.Title}</span>
+      </div>
+      <div>
+        <span>Description: </span>
+        <span>{movie.Description}</span>
+      </div>
+      <div>
+        <span>Director: </span>
+        <span>{movie.Director.Name}</span>
+      </div>
+      <div>
+        <span>Genre: </span>
+          <span>{movie.Genre.Name}</span>
+      </div>
+      <Link to={'/'}>
+      <button className="back-button">Back</button>
+      </Link>
+    </div>
+  );
 };
 
 export default MovieView;
