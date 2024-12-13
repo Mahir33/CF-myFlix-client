@@ -3,6 +3,7 @@ import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
 import LoginView from '../login-view/login-view';
 import SignupView from '../signup-view/signup-view';
+import NavigationBar from '../navigation-bar/navigation-bar';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -17,6 +18,13 @@ const MainView = () => {
     const [error, setError] = useState(null);
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
+
+    // Handle user logout
+    const onLoggedOut = () => {
+        setUser(null);
+        setToken(null);
+        localStorage.clear();
+      };
 
     useEffect(() => {
         if (!token) return;
@@ -56,6 +64,7 @@ const MainView = () => {
     
       return (
         <BrowserRouter>
+        <NavigationBar user={user} onLoggedOut={onLoggedOut} />
           <Row className="justify-content-md-center mt-5">
             <Routes>
               <Route
