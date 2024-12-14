@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import "./profile-view.scss";
 
 const ProfileView = ({ movies, user, token, onLoggedOut }) => {
   const [userData, setUserData] = useState(null);
@@ -97,12 +98,24 @@ const ProfileView = ({ movies, user, token, onLoggedOut }) => {
 
   return (
     <div className="profile-view">
-      <p>Profile Details</p>
-      <p>Username: {userData.Username}</p>
-      <p>Email: {userData.Email}</p>
-      <p>Birthday: {formatDate(userData.Birthday)}</p>
-
-      <Form onSubmit={handleUpdate}>
+      <h2>Profile Details</h2>
+      <hr />
+      <h4>Current Data:</h4>
+      <div>
+        <p>Username:</p>
+        <span>{userData.Username}</span>
+      </div>
+      <div>
+        <p>Email:</p>
+        <span>{userData.Email}</span>
+      </div>
+      <div>
+        <p>Birthday:</p>
+        <span>{formatDate(userData.Birthday)}</span>
+      </div>
+      <hr />
+      <h4>Update Your Profile</h4>
+      <Form onSubmit={handleUpdate} className="update-form">
         <Form.Group controlId="updateUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control
@@ -146,23 +159,31 @@ const ProfileView = ({ movies, user, token, onLoggedOut }) => {
         <Button type="submit">Update Profile</Button>
       </Form>
 
-      <Button variant="danger" onClick={handleDelete}>
+      <hr />
+
+      <h4>Delete Profile</h4>
+
+      <Button className="delete-btn" variant="danger" onClick={handleDelete}>
         Delete Profile
       </Button>
+
+      <hr />
 
       <h3>Favorite Movies</h3>
       {favoriteMovies.length === 0 ? (
         <p>No favorite movies yet.</p>
       ) : (
-        <ul>
+        <ul className="list-unstyled">
           {favoriteMovies.map((movieId) => {
             const movie = movies.find((m) => m._id === movieId);
             return (
-              <li key={movie._id}>
-                <Link to={`/movies/${movie._id}`}>{movie.Title}</Link>
-                <Button variant="danger" onClick={() => handleRemoveFavorite(movie._id)}>
-                  Remove from Favorites
-                </Button>
+              <li key={movie._id} className="d-flex align-items-left fav-movie">
+                <button className="remove-favorite-btn" onClick={() => handleRemoveFavorite(movie._id)}>
+                    X
+                </button>
+                <Link to={`/movies/${movie._id}`} className="link">
+                  <span>{movie.Title}</span>
+                </Link>
               </li>
             );
           })}

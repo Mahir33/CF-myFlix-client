@@ -1,0 +1,53 @@
+.profile-view {
+
+    p {
+        margin-bottom: 10px;
+        display: inline-block;
+        font-size: 1.2em;
+        color: #000;
+        min-width: 120px;
+
+        & + span {
+            text-decoration: underline;
+        }
+    }
+
+    .update-form button {
+        margin:  20px 0;
+        
+    }
+
+    .delete-btn {
+        margin:  20px 0;
+
+    }
+
+    .fav-movie {
+        margin-top: 20px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #000;
+    
+        .remove-favorite-btn {
+            margin-right: 10px;
+            background-color: #fd1919;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 2px 6px;
+            font-size: .5em;
+            cursor: pointer;
+            align-self: center; /* Ensure the button is vertically centered */
+            padding-block: 0;
+        }
+    
+        .link {
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+            line-height: 1em;
+        }
+    }
+
+}
+
