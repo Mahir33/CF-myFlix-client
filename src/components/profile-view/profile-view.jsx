@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import MovieCard from "../movie-card/movie-card";
 
-const ProfileView =({ movies, user, token, onLoggedOut }) => {
+const ProfileView = ({ movies, user, token, onLoggedOut }) => {
   const [userData, setUserData] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +13,6 @@ const ProfileView =({ movies, user, token, onLoggedOut }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    console.log(user);
     if (user && token) {
       fetch(`https://myflix-api-mahir-941afb3e93ba.herokuapp.com/users/${user.Username}`, {
         method: "GET",
@@ -35,102 +32,75 @@ const ProfileView =({ movies, user, token, onLoggedOut }) => {
       .catch((error) => console.error("Error fetching user data", error));
     }
   }, [user, token]);
-    
-    const handleUpdate = (event) => {
-      event.preventDefault();
 
-      fetch(`https://myflix-api-mahir-941afb3e93ba.herokuapp.com/users/${user.Username}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          Username: username,
-          Password: password,
-          Email: email,
-          Birthday: birthday,
-        }),
-      })
-      .then((response) => {
-        if(response.ok) {
-          alert("Profile updated successfully!");
-        } else {
-          alert("Failed to update profile");
-        }
-      })
-      .catch((error) => console.error("Error updating profile", error));
-    };
+  const handleUpdate = (event) => {
+    event.preventDefault();
 
-    const handleDelete = () => {
-      fetch(`https://myflix-api-mahir-941afb3e93ba.herokuapp.com/users/${user.Username}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        if (response.ok) {
-          onLoggedOut();
-          navigate("/");
-          alert("Profile deleted successfully");
-        } else {
-          alert("failed to delete the profile");
-        }
-      })
-      .catch((error) => console.error("Error deleting profile:", error));
-    };
+    fetch(`https://myflix-api-mahir-941afb3e93ba.herokuapp.com/users/${user.Username}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthday,
+      }),
+    })
+    .then((response) => {
+      if(response.ok) {
+        alert("Profile updated successfully!");
+      } else {
+        alert("Failed to update profile");
+      }
+    })
+    .catch((error) => console.error("Error updating profile", error));
+  };
 
-    let favoriteMoviesArray = movies.filter(m => user.FavoriteMovies.includes(m._id))
-    console.log(favoriteMoviesArray);
+  const handleDelete = () => {
+    fetch(`https://myflix-api-mahir-941afb3e93ba.herokuapp.com/users/${user.Username}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      if (response.ok) {
+        onLoggedOut();
+        navigate("/");
+        alert("Profile deleted successfully");
+      } else {
+        alert("Failed to delete the profile");
+      }
+    })
+    .catch((error) => console.error("Error deleting profile:", error));
+  };
 
-    
-    const handleAddFavorite = (movieId) => {
-        console.log("click");
-      fetch(`https://myflix-api-mahir-941afb3e93ba.herokuapp.com/users/${user.Username}/favorites`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ FavoriteMovies: movieId }),
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setFavoriteMovies(data.FavoriteMovies);
-      })
-      .catch((error) => console.error("Error adding to favorites", error));
-    };
+  const handleRemoveFavorite = (movieId) => {
+    fetch(`https://myflix-api-mahir-941afb3e93ba.herokuapp.com/users/${user.Username}/favorites/${movieId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setFavoriteMovies(data.FavoriteMovies);
+    })
+    .catch((error) => console.error("Error removing from favorites", error));
+  };
 
-    const handleRemoveFavorite = (movieId) => {
-      fetch(`https://myflix-api-mahir-941afb3e93ba.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        setFavoriteMovies(data.FavoriteMovies);
-      })
-      .catch((error) => console.error("Error removing from favorites", error));
-    };
+  if (!userData) return <div>Loading profile...</div>;
 
-    if (!userData) return <div>Loading profile...</div>;
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
 
-
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toISOString().split('T')[0];
-      };
-
-    return (
-      <div className="profile-view">
-        <p>Profile Details</p>
-        <p>Username: {userData.Username}</p>
-        <p>Email: {userData.Email}</p>
-        <p>Birthday: {formatDate(userData.Birthday)}</p>
+  return (
+    <div className="profile-view">
+      <p>Profile Details</p>
+      <p>Username: {userData.Username}</p>
+      <p>Email: {userData.Email}</p>
+      <p>Birthday: {formatDate(userData.Birthday)}</p>
 
       <Form onSubmit={handleUpdate}>
         <Form.Group controlId="updateUsername">
@@ -147,7 +117,7 @@ const ProfileView =({ movies, user, token, onLoggedOut }) => {
         <Form.Group controlId="updatePassword">
           <Form.Label>Password:</Form.Label>
           <Form.Control 
-           type="password"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -156,24 +126,24 @@ const ProfileView =({ movies, user, token, onLoggedOut }) => {
       
         <Form.Group controlId="updateEmail">
           <Form.Label>Email:</Form.Label>
-            <Form.Control 
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required 
-            />
-         </Form.Group>
+          <Form.Control 
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required 
+          />
+        </Form.Group>
       
         <Form.Group controlId="updateBirthday">
           <Form.Label>Birthday:</Form.Label>
-            <Form.Control 
-              type="date"
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-              required 
-         />
+          <Form.Control 
+            type="date"
+            value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
+            required 
+          />
         </Form.Group>
-      <Button type="submit">Update Profile</Button>
+        <Button type="submit">Update Profile</Button>
       </Form>
 
       <Button variant="danger" onClick={handleDelete}>
@@ -185,19 +155,21 @@ const ProfileView =({ movies, user, token, onLoggedOut }) => {
         <p>No favorite movies yet.</p>
       ) : (
         <ul>
-        {favoriteMovies.map((movie) => (
-          <li key={movie._id}>
-            <MovieCard
-                movie={movie}
-                onAddFavorite={() => handleAddFavorite(movie._id)}
-                onRemoveFavorite={() => handleRemoveFavorite(movie._id)}
-            />
-          </li>
-        ))}
+          {favoriteMovies.map((movieId) => {
+            const movie = movies.find((m) => m._id === movieId);
+            return (
+              <li key={movie._id}>
+                <Link to={`/movies/${movie._id}`}>{movie.Title}</Link>
+                <Button variant="danger" onClick={() => handleRemoveFavorite(movie._id)}>
+                  Remove from Favorites
+                </Button>
+              </li>
+            );
+          })}
         </ul>
       )}
-      </div>
-    );
-    };
+    </div>
+  );
+};
 
 export default ProfileView;
