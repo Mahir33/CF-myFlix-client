@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const MovieCard = ({ movie }) => {
 
   return (
-    <Card className="h100">
+    <Card className="h100 mb-4">
       <Card.Img variant="top" style={{height: "300px", objectFit: "cover"}} src={movie.Image_url} />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>

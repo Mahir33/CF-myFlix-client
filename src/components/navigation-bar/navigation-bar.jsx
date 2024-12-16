@@ -3,7 +3,8 @@ import { Link } from "react-router";
 
 const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar bg="light" expand="lg" sticky="top" className="mb-3">
+    <>
+    <Navbar bg="middle" expand="lg" sticky="top">
       <Container>
         <Navbar.Brand as={Link} to="/">
           My Flix App
@@ -36,6 +37,8 @@ const NavigationBar = ({ user, onLoggedOut }) => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <hr style={{margin: "0"}}/>
+    </>
   );
 };
 
