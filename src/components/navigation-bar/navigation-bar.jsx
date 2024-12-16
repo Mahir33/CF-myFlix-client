@@ -37,7 +37,7 @@ const NavigationBar = ({ user, onLoggedOut }) => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    <hr style={{margin: "0"}}/>
+    <hr style={{marginTop: "0"}}/>
     </>
   );
 };

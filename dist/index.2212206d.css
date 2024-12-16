@@ -13215,10 +13215,6 @@ h4 span {
   font-weight: normal;
 }
 
-.profile-view h2 {
-  margin-top: 20px;
-}
-
 .profile-view p {
   color: #000;
   min-width: 120px;
@@ -13265,6 +13261,6 @@ h4 span {
 .search-bar {
   width: 100%;
   max-width: 300px;
-  margin: 20px auto;
+  margin: 0 auto 20px;
 }
 /*# sourceMappingURL=index.2212206d.css.map */

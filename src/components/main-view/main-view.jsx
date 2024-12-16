@@ -71,6 +71,20 @@ const MainView = () => {
                 </>
               }
             />
+            <Route 
+              path="/users"
+              element={
+                <>
+                  {user ? (
+                    <Navigate to="/" replace />
+                  ) : (
+                    <Col md={5}>
+                      <SignupView />
+                    </Col>
+                  )}
+                </>
+              }
+            />
             <Route
               path="/movies/:movieId"
               element={
