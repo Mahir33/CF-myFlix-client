@@ -7,7 +7,7 @@ const NavigationBar = ({ user, onLoggedOut }) => {
     <Navbar bg="middle" expand="lg" sticky="top">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          My Flix App
+          ohMyFlix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
