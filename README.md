@@ -92,7 +92,7 @@ This project is licensed under the **MIT License**.
 ---
 
 
-# Screenshots of ohMyFlix App
+## Visual overview
 ![Login](docs/img/login-view.png)
 ![Register](docs/img//signup-view.png)
 ![Main View](docs/img//main-view.png)
